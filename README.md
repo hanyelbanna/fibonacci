@@ -1,21 +1,19 @@
 # Fibonacci
 
-**TODO: Add description**
+### Concurrent Fibonacci Server With Elixir.
 
-## Installation
+## Try with iex
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `fibonacci` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:fibonacci, "~> 0.1.0"}
-  ]
-end
+```
+$ iex -S mix
+iex(1)> Fibonacci.calculate(0)
+iex(2)> Fibonacci.calculate(1)
+iex(3)> Fibonacci.calculate(7)
+iex(4)> Fibonacci.calculate(-1)
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/fibonacci](https://hexdocs.pm/fibonacci).
+## Test
 
+```
+$ mix test
+```
