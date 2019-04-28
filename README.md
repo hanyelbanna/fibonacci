@@ -20,13 +20,19 @@ $ mix test
 
 ## Fibonacci API
 
-#### Run the server
+### Get the dependencies
+
+```
+$ mix do deps.get, deps.compile, compile
+```
+
+### Run the server
 
 ```
 $ mix run --no-halt
 ```
 
-#### Fibonacci Endpoint:
+### Fibonacci Endpoint:
 
 ```
 http://localhost:4000/fib/100
@@ -35,13 +41,13 @@ http://localhost:4000/fib/100
 - Replace 100 in the URL with your Fibonacci number to see the result on the browser page body as JSON.
 - Run some numbers to make a history list.
 
-#### History Endpoint:
+### History Endpoint:
 
 ```
 http://localhost:4000/his
 ```
 
-#### History Count Endpoint:
+### History Count Endpoint:
 
 ```
 http://localhost:4000/his_count

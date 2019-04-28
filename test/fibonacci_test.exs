@@ -14,15 +14,15 @@ defmodule FibonacciTest do
     assert Fibonacci.calculate(7) == {:ok, 13}
   end
 
-  test "No Fibonacci Number under Zero" do
-    assert_raise RuntimeError, fn -> Fibonacci.calculate(-1) end
-  end
-
   test "return {:ok, 354224848179261915075} for given 100" do
     assert Fibonacci.calculate(100) == {:ok, 354_224_848_179_261_915_075}
   end
 
+  test "No Fibonacci Number under Zero" do
+    assert_raise RuntimeError, fn -> Fibonacci.calculate(-1) end
+  end
+
   test "hi is an invalid input" do
-    refute Fibonacci.calculate('hi') == {:ok, 'hi'}
+    refute Fibonacci.calculate("hany") == {:ok, "hany"}
   end
 end
