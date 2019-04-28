@@ -1,6 +1,10 @@
 {application,fibonacci,
-             [{applications,[kernel,stdlib,elixir,logger]},
+             [{applications,[kernel,stdlib,elixir,logger,plug_cowboy,poison,
+                             cowboy,plug]},
               {description,"fibonacci"},
-              {modules,['Elixir.Fibonacci']},
+              {modules,['Elixir.Fibonacci','Elixir.Fibonacci.Application',
+                        'Elixir.Fibonacci.Endpoint',
+                        'Elixir.Fibonacci.Router']},
               {registered,[]},
-              {vsn,"0.1.0"}]}.
+              {vsn,"0.1.0"},
+              {mod,{'Elixir.Fibonacci.Application',[]}}]}.
