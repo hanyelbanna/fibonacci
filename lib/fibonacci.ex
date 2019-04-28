@@ -15,7 +15,7 @@ defmodule Fibonacci do
   - Seround fib function return with {:ok, } tuple
   """
   def calculate(n) when is_integer(n) and n >= 0 do
-    Agent.start_link(fn -> %{0 => 0, 1 => 1} end, name: __MODULE__)
+    start_agent()
     {:ok, caching(n)}
   end
 
@@ -31,6 +31,13 @@ defmodule Fibonacci do
   - Catch all
   """
   def calculate(n), do: {:error, "#{n} is an invalid input"}
+
+  @doc """
+  - To start Agent
+  """
+  def start_agent do
+    Agent.start_link(fn -> %{0 => 0, 1 => 1} end, name: __MODULE__)
+  end
 
   @doc """
   - Save new numbers in cached state at separate prossess with Agent abstraction
@@ -74,4 +81,12 @@ defmodule Fibonacci do
   - Here we will go with fib function only one time with each number down to 1
   """
   def fib(n, first, second) when is_integer(n) and n > 1, do: fib(n - 1, second, first + second)
+
+  @doc """
+  - To display history
+  """
+  def history do
+    start_agent()
+    Agent.get(__MODULE__, & &1)
+  end
 end
