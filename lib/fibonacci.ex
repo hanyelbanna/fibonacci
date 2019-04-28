@@ -20,24 +20,32 @@ defmodule Fibonacci do
   end
 
   @doc """
-  - Save new numbers in cached state at separate prossess with Agent abstraction
+  - Multiple calculations by Enum.map
   """
-  def caching(n) do
-    if in_cached = Agent.get(__MODULE__, fn map -> Map.get(map, n) end) do
-      IO.puts("Cached: " <> inspect(Agent.get(__MODULE__, fn map -> map end)))
-      in_cached
-    else
-      result = fib(n, 0, 1)
-      IO.puts("Not Cached")
-      Agent.update(__MODULE__, fn map -> Map.put(map, n, result) end)
-      result
-    end
+  def calculate(n) when is_list(n) do
+    result = Enum.map(n, fn x -> caching(x) end)
+    {:ok, result}
   end
 
   @doc """
   - Catch all
   """
   def calculate(n), do: {:error, "#{n} is an invalid input"}
+
+  @doc """
+  - Save new numbers in cached state at separate prossess with Agent abstraction
+  """
+  def caching(n) do
+    if in_cached = Agent.get(__MODULE__, fn map -> Map.get(map, n) end) do
+      IO.puts("#{n} - Cached: " <> inspect(Agent.get(__MODULE__, fn map -> map end)))
+      in_cached
+    else
+      result = fib(n, 0, 1)
+      IO.puts("#{n} - Not Cached")
+      Agent.update(__MODULE__, fn map -> Map.put(map, n, result) end)
+      result
+    end
+  end
 
   @doc """
   - For case fib(0,0,1)
