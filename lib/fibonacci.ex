@@ -37,6 +37,7 @@ defmodule Fibonacci do
   """
   def start_agent do
     Agent.start_link(fn -> %{0 => 0, 1 => 1} end, name: __MODULE__)
+    Agent.start_link(fn -> [] end, name: :fib_history)
   end
 
   @doc """
@@ -45,11 +46,13 @@ defmodule Fibonacci do
   def caching(n) do
     if in_cached = Agent.get(__MODULE__, fn map -> Map.get(map, n) end) do
       IO.puts("#{n} - Cached: " <> inspect(Agent.get(__MODULE__, fn map -> map end)))
+      Agent.update(:fib_history, fn list -> [{n, in_cached} | list] end)
       in_cached
     else
       result = fib(n, 0, 1)
       IO.puts("#{n} - Not Cached")
       Agent.update(__MODULE__, fn map -> Map.put(map, n, result) end)
+      Agent.update(:fib_history, fn list -> [{n, result} | list] end)
       result
     end
   end
@@ -86,7 +89,7 @@ defmodule Fibonacci do
   - To display history
   """
   def history do
-    start_agent()
-    Agent.get(__MODULE__, & &1)
+    Agent.start_link(fn -> [] end, name: :fib_history)
+    Agent.get(:fib_history, & &1)
   end
 end
