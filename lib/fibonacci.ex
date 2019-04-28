@@ -92,4 +92,16 @@ defmodule Fibonacci do
     Agent.start_link(fn -> [] end, name: :fib_history)
     Agent.get(:fib_history, & &1)
   end
+
+  @doc """
+  - To group the history by the times
+  """
+  def history_count do
+    Agent.start_link(fn -> [] end, name: :fib_history)
+
+    Agent.get(:fib_history, & &1)
+    |> Enum.group_by(fn {x, _} -> x end)
+    |> Enum.map(fn {x, y} -> {x, length(y)} end)
+    |> Map.new()
+  end
 end
