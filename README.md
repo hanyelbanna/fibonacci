@@ -24,14 +24,12 @@ $ mix test
 
 ```
 $ mix run --no-halt
-
 ```
 
 #### Fibonacci Endpoint:
 
 ```
 http://localhost:4000/fib/100
-
 ```
 
 - Replace 100 in the URL with your Fibonacci number to see the result on the browser page body as JSON.
@@ -41,14 +39,12 @@ http://localhost:4000/fib/100
 
 ```
 http://localhost:4000/his
-
 ```
 
 #### History Count Endpoint:
 
 ```
 http://localhost:4000/his_count
-
 ```
 
 ## Best Regarts, Hany.
