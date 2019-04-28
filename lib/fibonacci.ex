@@ -13,19 +13,24 @@ defmodule Fibonacci do
   @doc """
   - Accept given number more than or equal to 0
   - Seround fib function return with {:ok, } tuple
-  - Save new numbers in cached state at separate prossess with Agent abstraction
   """
   def calculate(n) when is_integer(n) and n >= 0 do
     Agent.start_link(fn -> %{0 => 0, 1 => 1} end, name: __MODULE__)
+    {:ok, caching(n)}
+  end
 
+  @doc """
+  - Save new numbers in cached state at separate prossess with Agent abstraction
+  """
+  def caching(n) do
     if in_cached = Agent.get(__MODULE__, fn map -> Map.get(map, n) end) do
       IO.puts("Cached: " <> inspect(Agent.get(__MODULE__, fn map -> map end)))
-      {:ok, in_cached}
+      in_cached
     else
       result = fib(n, 0, 1)
       IO.puts("Not Cached")
       Agent.update(__MODULE__, fn map -> Map.put(map, n, result) end)
-      {:ok, result}
+      result
     end
   end
 
